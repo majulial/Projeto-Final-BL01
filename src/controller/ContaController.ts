@@ -1,59 +1,96 @@
-import { Conta } from "../model/Conta";
+import { Produto } from "../model/Produto";
 import { Repository } from "../repository/Repository";
 import { colors } from "../util/Colors";
+import { formatarMoeda } from "../util/Currency";
 
-export class CatalogoController implements Repository{
-        
-    private listaCatalogo = new Array<Repository>();
+//CONTA CONTROLLER CUIDA DA INTERFACE FUNCIONALIDADES (CONTA REPOSITORY)
 
-    public id: number = 0;
 
-     //MÉTODOS CRUD
+//CONTA É UMA SUPER CONTA QUE SUPORTA TOAS (UMA CONTA GENÉRICA)
+
+export class ContaController implements Repository{
+
+    private listaProdutos = new Array<Produto>();
+
+    public numero: number = 0;
+    id: any;
+
+
+      //MÉTODOS CRUD
+
     procurarPorID(id: number): void {
-        const buscaCat = this.buscarNoArray(id);
+       const buscaProduto = this.buscarNoArray(id);
 
-        if(buscaCat !== null)
-            buscaCat.visualizar();
+        if(buscaProduto !== null)
+            buscaProduto.visualizar();
         else
-            console.log(colors.fg.redstrong, `\nO filme de ID ${id} não foi encontrado!`, colors.reset);
+            console.log(colors.fg.redstrong, `\n Produto de ID ${id} não foi encontrado!`, colors.reset);
 
     }
-    
+
+
+
     listarTodos(): void {
-        for (let produto of this.listaCatalogo){
+        for (let produto of this.listaProdutos){
             produto.visualizar();
         }
+   
+
+    
+
+    }
+  
+     
+     procurarPorNomw(nome: string): void {
+
+        //FILTRAGEM DOS DADOS 
+        const buscaPorNome = this.listaProdutos.filter(produto =>
+            produto.nome.toLocaleUpperCase().includes(nome.toUpperCase())
+        );
+        //LISTAGEM DOS DADOS 
+
+        if(buscaPorNome.length > 0){
+            buscaPorNome.forEach(nome => nome.visualizar());
+        }else {
+            console.log(colors.fg.redstrong, `Nenhuma conta foi encontrada`, colors.reset);
+        }
+
     }
 
-    cadastrar(produto: Conta): void {
-        this.listaCatalogo.push(produto);
-        console.log(colors.fg.greenstrong,
-            `\nA Produto de ID ${produto.id} foi cadastrado com sucesso!`, colors.reset);
+    cadastrar(produto: Produto): void {
+        this.listaProdutos.push(produto);
+        console.log(colors.fg.greenstrong,`O produto número ${produto.id} foi cadastrado com sucesso!`, colors.reset)
     }
 
-    atualizar(produto: Conta): void {
-        const buscaCat = this.buscarNoArray(produto.id);
+    atualizar(produto: Produto): void {
+            const buscaProduto = this.buscarNoArray(produto.id);
 
-        if(buscaCat !== null){
-            this.listaCatalogo[this.listaCatalogo.indexOf(buscaCat)] = produto;
-            console.log(colors.fg.greenstrong, 
-                `\nA Produto de ID ${produto.id} foi atualizado com sucesso!`, colors.reset);
-        }else
-            console.log(colors.fg.redstrong, `\nO filme de ID ${filme.id} não foi encontrado!`, colors.reset);
+    if (buscaProduto != null) {
+        this.listaProdutos[this.listaProdutos.indexOf(buscaProduto)] = produto;
+        console.log(
+            colors.fg.greenstrong,
+            `\nO produto número ${produto.id} foi Atualizado com Sucesso!`,
+            colors.reset
+        );
+    } else {
+        console.log(colors.fg.red, "\nProduto não Encontrado!", colors.reset);
+    }
+       
     }
 
     deletar(id: number): void {
-        const buscaProduto = this.buscarNoArray(id);
-
-        if(buscaCat !== null){
-            this.listaCatalogo.splice(this.listaCatalogo.indexOf(buscaCat), 1);
-            console.log(colors.fg.greenstrong, 
-                `\nA Produto de ID ${id} foi deletado com sucesso!`, colors.reset);
-        }else
-            console.log(colors.fg.red, `\nO filme de ID ${id} não foi encontrado!`, colors.reset);
+        const buscarProduto = this.buscarNoArray(id);
+        if (buscarProduto !== null){
+            this.listaProdutos.splice(this.listaProdutos.indexOf(buscarProduto), 1);
+        console.log(colors.fg.greenstrong,`A conta foi deletada com sucesso`, colors.reset);
+    }
+        else
+            console.log(colors.fg.redstrong, "\nConta não Encontrada\n", colors.reset);
     }
 
-  //MÉTODOS AUXILIARES
+
+
+        //MÉTODOS AUXILIARES
 
 
         //GERANDO NUMERO DAS CONTAS CRIADAS
@@ -62,12 +99,11 @@ export class CatalogoController implements Repository{
         return ++ this.id;
     }
 
-    public buscarNoArray(id: number): Conta | null {
-        for (let produto of this.listaCatalogo){
-            if (produto.id === id)
-                return produto
+        public buscarNoArray(id: number): Produto | null{
+            for (let produto of this.listaProdutos){
+                if (produto.id === id)
+                    return produto
+            }
+            return null;
         }
-
-        return null;
-    }
 }

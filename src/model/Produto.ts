@@ -1,6 +1,6 @@
 import { formatarMoeda } from "../util/Currency";
 
-export abstract class Conta {
+export abstract class Produto {
 
 
   private _nome: string;

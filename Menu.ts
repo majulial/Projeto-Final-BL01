@@ -1,10 +1,10 @@
 import { Input } from "./src/util/Input";
 import { colors } from "./src/util/Colors";
 import { formatarMoeda } from "./src/util/Currency";
-import {CatalogoController} from "./src/controller/ContaController";
+import {ContaController} from "./src/controller/ContaController";
 import { DVD } from "./src/model/Dvd";
 
-const contas = new CatalogoController();
+const contas = new ContaController();
 
     
 

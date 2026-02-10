@@ -1,4 +1,4 @@
-import { Conta } from "../model/Conta";
+import { Produto } from "../model/Produto";
 
 export interface Repository{
 
@@ -6,7 +6,7 @@ export interface Repository{
 
     procurarPorID(id: number): void;
     listarTodos(): void;
-    cadastrar(produto: Conta): void;
-    atualizar(produto: Conta): void;
+    cadastrar(produto: Produto): void;
+    atualizar(produto: Produto): void;
     deletar(id: number): void;
 }

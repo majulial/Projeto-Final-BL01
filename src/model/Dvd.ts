@@ -1,6 +1,6 @@
-import { Conta } from "./Conta";
+import { Produto } from "./Produto";
 
-export class DVD extends Conta {
+export class DVD extends Produto {
 
   private _filme: string;
 
