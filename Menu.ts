@@ -1,13 +1,19 @@
 import { Input } from "./src/util/Input";
 import { colors } from "./src/util/Colors";
 import { formatarMoeda } from "./src/util/Currency";
+import {CatalogoController} from "./src/controller/ContaController";
+import { DVD } from "./src/model/Dvd";
+
+const contas = new CatalogoController();
+
+    
 
 
 export function main() {
 
     let opc: number;
 
-    //criarContasTeste();
+      //criarContasTeste();
 
     while (true) {
 
@@ -16,11 +22,11 @@ export function main() {
         console.log("||              SWETNESS LOCADORA              ||")
         console.log("=================================================")
         console.log("||                                             ||")
-        console.log("||           1 - Inserir dvd                   ||")
-        console.log("||           2 - Listar todos os dvds          ||")
-        console.log("||           3 - Buscar produto por id         ||")
-        console.log("||           4 - Atualizar dados do produto    ||")
-        console.log("||           5 - Apagar produto                ||")
+        console.log("||           1 - Criar cadastro                 ||")
+        console.log("||           2 - Listar todos os clientes          ||")
+        console.log("||           3 - Buscar cliente por nome         ||")
+        console.log("||           4 - Atualizar dados do cliente    ||")
+        console.log("||           5 - Apagar conta                ||")
         console.log("||           0 - Sair                          ||")
         console.log("=================================================",
             colors.reset
@@ -41,19 +47,18 @@ export function main() {
 
             case 1:
                 console.log("\n\nCriar Produto\n\n");
-              
+               
                 keyPress()
 
                 break;
             case 2:
                 console.log("\n\nListar todos os produtos\n\n");
-    
                 keyPress()
 
                 break;
             case 3:
                 console.log("\n\nConsultar dados da Conta - por número\n\n");
-           
+         
                 keyPress()
 
                 break;
@@ -87,6 +92,13 @@ export function main() {
             Input.prompt();
         }
 
+
+
+
+
+
+
+
         function criacao(): void {
     console.log("\n=========================================================")
     console.log("\n                                                         ")
@@ -98,5 +110,8 @@ export function main() {
 
     }
 }
+
+
+
 
 main();
